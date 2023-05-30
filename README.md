@@ -1,5 +1,8 @@
-# B2WIN 과제
+## B2WIN 과제
 newscatcher api를 이용하여 헤드라인과 뉴스를 검색할 수 있습니다.
+
+## 배포 주소
+https://b2win-newscatcher.web.app/
 
 ## Key Features
 - 로그인, 로그아웃
