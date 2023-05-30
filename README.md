@@ -38,3 +38,9 @@ $ npm run start
 
 ![May-30-2023 17-32-15](https://github.com/kimdonggu42/b2win/assets/115632555/fd8b8d3d-d098-43dd-842b-b1bdf4c16049)
 
+
+- 요구 사항 5
+  - 서비스는 Firebase로 배포했습니다.
+
+<img width="1724" alt="스크린샷 2023-05-30 오후 5 42 00" src="https://github.com/kimdonggu42/b2win/assets/115632555/97e0b982-c717-44e0-b37a-1b10db729676">
+
