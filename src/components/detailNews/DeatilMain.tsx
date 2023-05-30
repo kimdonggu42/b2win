@@ -25,8 +25,6 @@ function DetailMain() {
   const detailNewsData = JSON.parse(window.localStorage.getItem("newsData")!);
   const selectNewsIndex = useRecoilValue<number>(selectNewsIndexAtom);
 
-  console.log(selectNewsIndex);
-
   return (
     <DetailContainer>
       <DetailWrapper>

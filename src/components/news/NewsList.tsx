@@ -19,7 +19,7 @@ const NewsListContainer = styled.li`
   }
 `;
 
-function NewsList({ newsData, index }: any) {
+function NewsList({ newsData, index }: { newsData: any; index: number }) {
   const setSelectNewsIndex = useSetRecoilState<number>(selectNewsIndexAtom);
   const navigate = useNavigate();
 

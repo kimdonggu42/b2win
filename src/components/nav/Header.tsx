@@ -20,6 +20,11 @@ const HeaderWrapper = styled.div`
   > .logo {
     font-size: 25px;
     font-weight: 600;
+
+    > a {
+      color: black;
+      text-decoration: none;
+    }
   }
 `;
 
@@ -48,8 +53,6 @@ const PageMoveBtn = styled.button`
 function Header() {
   const isLogin = window.localStorage.getItem("accessToken");
 
-  console.log(isLogin);
-
   const logout = () => {
     localStorage.removeItem("accessToken");
     window.location.reload();
@@ -58,7 +61,9 @@ function Header() {
   return (
     <HeaderContainer>
       <HeaderWrapper>
-        <div className='logo'>B2WIN</div>
+        <div className='logo'>
+          <Link to='/'>B2WIN</Link>
+        </div>
         <ButtonWrapper>
           {isLogin === null ? (
             <Link to='/login'>

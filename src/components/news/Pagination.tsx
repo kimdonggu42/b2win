@@ -33,8 +33,14 @@ function Pagination({
   getPaginationData,
   currentBlockNum,
   setCurrentBlockNum,
-  newsData,
-}: any) {
+}: {
+  totalPageNum: number;
+  currentPage: number;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  getPaginationData: any;
+  currentBlockNum: number;
+  setCurrentBlockNum: React.Dispatch<React.SetStateAction<number>>;
+}) {
   const PAGING_NUM: number = 10;
   const blockArea: number = currentBlockNum * PAGING_NUM; // 각 페이지에서 첫 페이지네이션의 위치 계산
 
@@ -75,7 +81,7 @@ function Pagination({
       <button className='prevHandle' onClick={prevPageHandler} disabled={currentPage === 1}>
         prev
       </button>
-      {allArr.slice(blockArea, 10 + blockArea).map((value: any) => {
+      {allArr.slice(blockArea, 10 + blockArea).map((value) => {
         return (
           <button
             className={currentPage === value ? "pageTab pageFocused" : "pageTab"}

@@ -103,7 +103,7 @@ function NewsMain() {
   );
   const [sortedCurrentPage, setSortedCurrentPage] = useState<number>(
     () => JSON.parse(window.localStorage.getItem("sortedCurrentPage")!) || 0
-  ); // 현재 정렬 버튼 index
+  );
 
   // 검색 버튼 클릭 시 GET 요청
   const getData = async () => {
@@ -116,10 +116,10 @@ function NewsMain() {
         lang: "en",
         sort_by: "relevancy", // 정렬 기준
         page: 1, // 몇번째 페이지인지
-        page_size: "100", // 한 페이지에 몇 개씩 볼건지
+        page_size: "50", // 한 페이지에 몇 개씩 볼건지
       },
       headers: {
-        "x-api-key": process.env.REACT_APP_NEWSCATCHER_API_KEY_FOUR,
+        "x-api-key": process.env.REACT_APP_NEWSCATCHER_API_KEY_FIVE,
       },
     });
     setNewsData(res.data.articles);
@@ -143,10 +143,10 @@ function NewsMain() {
         lang: "en",
         sort_by: "relevancy",
         page: currentPage,
-        page_size: "100",
+        page_size: "50",
       },
       headers: {
-        "x-api-key": process.env.REACT_APP_NEWSCATCHER_API_KEY_FOUR,
+        "x-api-key": process.env.REACT_APP_NEWSCATCHER_API_KEY_FIVE,
       },
     });
     setNewsData(res.data.articles);
@@ -257,20 +257,20 @@ function NewsMain() {
       <NewsWrapper>
         {sortedCurrentPage === 0 ? (
           <>
-            {newsData?.map((value: any, index: any) => (
+            {newsData?.map((value: any, index: number) => (
               <NewsList key={value._id} newsData={value} index={index} />
             ))}
           </>
         ) : sortedCurrentPage === 1 ? (
           <>
-            {sortedDateNewsData?.map((value: any) => (
-              <NewsList key={value._id} newsData={value} />
+            {sortedDateNewsData?.map((value: any, index: number) => (
+              <NewsList key={value._id} newsData={value} index={index} />
             ))}
           </>
         ) : (
           <>
-            {sortedRankNewsData?.map((value: any) => (
-              <NewsList key={value._id} newsData={value} />
+            {sortedRankNewsData?.map((value: any, index: number) => (
+              <NewsList key={value._id} newsData={value} index={index} />
             ))}
           </>
         )}
@@ -282,7 +282,6 @@ function NewsMain() {
         getPaginationData={getPaginationData}
         currentBlockNum={currentBlockNum}
         setCurrentBlockNum={setCurrentBlockNum}
-        newsData={newsData}
       />
     </NewsContainer>
   );
