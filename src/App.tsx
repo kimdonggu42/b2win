@@ -1,4 +1,5 @@
 import Header from "./components/nav/Header";
+import MainPage from "./pages/MainPage";
 import LoginPage from "./pages/LoginPage";
 import HeadlinesPage from "./pages/HeadlinesPage";
 import NewsPage from "./pages/NewsPage";
@@ -12,7 +13,8 @@ function App() {
       <GlobalStyle />
       <Header />
       <Routes>
-        <Route path='/' element={<LoginPage />} />
+        <Route path='/' element={<MainPage />} />
+        <Route path='/login' element={<LoginPage />} />
         <Route path='/headlines' element={<HeadlinesPage />} />
         <Route path='/news' element={<NewsPage />} />
         <Route path='/detailnews/:id' element={<DetailPage />} />

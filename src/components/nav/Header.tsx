@@ -46,14 +46,28 @@ const PageMoveBtn = styled.button`
 `;
 
 function Header() {
+  const isLogin = window.localStorage.getItem("accessToken");
+
+  console.log(isLogin);
+
+  const logout = () => {
+    localStorage.removeItem("accessToken");
+    window.location.reload();
+  };
+
   return (
     <HeaderContainer>
       <HeaderWrapper>
         <div className='logo'>B2WIN</div>
         <ButtonWrapper>
-          <Link to='/'>
-            <PageMoveBtn>Login</PageMoveBtn>
-          </Link>
+          {isLogin === null ? (
+            <Link to='/login'>
+              <PageMoveBtn>Login</PageMoveBtn>
+            </Link>
+          ) : (
+            <PageMoveBtn onClick={logout}>Loout</PageMoveBtn>
+          )}
+
           <Link to='headlines'>
             <PageMoveBtn>Headlines</PageMoveBtn>
           </Link>
