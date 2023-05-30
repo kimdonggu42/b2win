@@ -1,11 +1,16 @@
+import styled from "styled-components";
 import NewsMain from "../components/news/NewsMain";
+
+const NewsMainContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
 
 function NewsPage() {
   return (
-    <>
-      뉴스 페이지
+    <NewsMainContainer>
       <NewsMain />
-    </>
+    </NewsMainContainer>
   );
 }
 
