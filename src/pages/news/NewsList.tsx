@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 
 const NewsContainer = styled.li`
   display: flex;
@@ -26,15 +25,9 @@ const NewsContainer = styled.li`
   }
 `;
 
-function NewsList({ newsData }: { newsData: any }) {
-  const navigate = useNavigate();
-
-  const moveDetailPage = () => {
-    navigate(`/detailnews/${newsData._id}`);
-  };
-
+function NewsList({ newsData }: any) {
   return (
-    <NewsContainer onClick={moveDetailPage}>
+    <NewsContainer>
       <div>
         <span>title :</span>
         {newsData.title}

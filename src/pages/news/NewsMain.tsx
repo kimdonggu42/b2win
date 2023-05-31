@@ -4,6 +4,11 @@ import Pagination from "../../components/Pagination";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
+const NewsMainContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 const NewsContainer = styled.div`
   width: 800px;
   /* border: 1px solid red; */
@@ -70,10 +75,8 @@ const SortedButtonArea = styled.ul`
 `;
 
 const NewsWrapper = styled.ul`
-  /* border: 1px solid orange; */
-  margin: 0;
-  padding: 0;
   list-style: none;
+  /* border: 1px solid orange; */
 `;
 
 function NewsMain() {
@@ -116,7 +119,7 @@ function NewsMain() {
         lang: "en",
         sort_by: "relevancy", // 정렬 기준
         page: 1, // 몇번째 페이지인지
-        page_size: "50", // 한 페이지에 몇 개씩 볼건지
+        page_size: "10", // 한 페이지에 몇 개씩 볼건지
       },
       headers: {
         "x-api-key": process.env.REACT_APP_NEWSCATCHER_API_KEY_FIVE,
@@ -203,87 +206,89 @@ function NewsMain() {
   };
 
   return (
-    <NewsContainer>
-      <SelectWrapper>
-        <select className='country' value={userCountry} onChange={countryChange}>
-          <option value='US'>US</option>
-          <option value='CA'>CA</option>
-          <option value='MX'>MX</option>
-        </select>
-        <select className='topic' value={userTopic} onChange={topicChange}>
-          <option value='news'>news</option>
-          <option value='sport'>sport</option>
-          <option value='tech'>tech</option>
-          <option value='world'>world</option>
-          <option value='finance'>finance</option>
-          <option value='politics'>politics</option>
-          <option value='business'>business</option>
-          <option value='economics'>economics</option>
-          <option value='entertainment'>entertainment</option>
-          <option value='beauty'>beauty</option>
-          <option value='travel'>travel</option>
-          <option value='music'>music</option>
-          <option value='food'>food</option>
-          <option value='science'>science</option>
-          <option value='gaming'>gaming</option>
-        </select>
-        <select className='searchIn' value={userSearchIn} onChange={searchInChange}>
-          <option value='title'>title</option>
-          <option value='summary'>summary</option>
-        </select>
-        <input
-          className='keyword'
-          placeholder='검색어를 입력해 주세요'
-          onChange={inputChange}
-          value={userInput}
+    <NewsMainContainer>
+      <NewsContainer>
+        <SelectWrapper>
+          <select className='country' value={userCountry} onChange={countryChange}>
+            <option value='US'>US</option>
+            <option value='CA'>CA</option>
+            <option value='MX'>MX</option>
+          </select>
+          <select className='topic' value={userTopic} onChange={topicChange}>
+            <option value='news'>news</option>
+            <option value='sport'>sport</option>
+            <option value='tech'>tech</option>
+            <option value='world'>world</option>
+            <option value='finance'>finance</option>
+            <option value='politics'>politics</option>
+            <option value='business'>business</option>
+            <option value='economics'>economics</option>
+            <option value='entertainment'>entertainment</option>
+            <option value='beauty'>beauty</option>
+            <option value='travel'>travel</option>
+            <option value='music'>music</option>
+            <option value='food'>food</option>
+            <option value='science'>science</option>
+            <option value='gaming'>gaming</option>
+          </select>
+          <select className='searchIn' value={userSearchIn} onChange={searchInChange}>
+            <option value='title'>title</option>
+            <option value='summary'>summary</option>
+          </select>
+          <input
+            className='keyword'
+            placeholder='검색어를 입력해 주세요'
+            onChange={inputChange}
+            value={userInput}
+          />
+          <button className='searchBtn' onClick={getData}>
+            search
+          </button>
+        </SelectWrapper>
+        <SortedButtonArea>
+          {sortedArr.map((tab, index) => {
+            return (
+              <li
+                className={sortedCurrentPage === index ? "tab focused" : "tab"}
+                key={index}
+                onClick={() => selectSortedHandler(index)}
+              >
+                <div className='el'>{tab.sorting}</div>
+              </li>
+            );
+          })}
+        </SortedButtonArea>
+        <NewsWrapper>
+          {sortedCurrentPage === 0 ? (
+            <>
+              {newsData?.map((value: any, index: number) => (
+                <NewsList key={value._id} newsData={value} />
+              ))}
+            </>
+          ) : sortedCurrentPage === 1 ? (
+            <>
+              {sortedDateNewsData?.map((value: any, index: number) => (
+                <NewsList key={value._id} newsData={value} />
+              ))}
+            </>
+          ) : (
+            <>
+              {sortedRankNewsData?.map((value: any, index: number) => (
+                <NewsList key={value._id} newsData={value} />
+              ))}
+            </>
+          )}
+        </NewsWrapper>
+        <Pagination
+          totalPageNum={totalPageNum}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          getPaginationData={getPaginationData}
+          currentBlockNum={currentBlockNum}
+          setCurrentBlockNum={setCurrentBlockNum}
         />
-        <button className='searchBtn' onClick={getData}>
-          search
-        </button>
-      </SelectWrapper>
-      <SortedButtonArea>
-        {sortedArr.map((tab, index) => {
-          return (
-            <li
-              className={sortedCurrentPage === index ? "tab focused" : "tab"}
-              key={index}
-              onClick={() => selectSortedHandler(index)}
-            >
-              <div className='el'>{tab.sorting}</div>
-            </li>
-          );
-        })}
-      </SortedButtonArea>
-      <NewsWrapper>
-        {sortedCurrentPage === 0 ? (
-          <>
-            {newsData?.map((value: any, index: number) => (
-              <NewsList key={value._id} newsData={value} />
-            ))}
-          </>
-        ) : sortedCurrentPage === 1 ? (
-          <>
-            {sortedDateNewsData?.map((value: any, index: number) => (
-              <NewsList key={value._id} newsData={value} />
-            ))}
-          </>
-        ) : (
-          <>
-            {sortedRankNewsData?.map((value: any, index: number) => (
-              <NewsList key={value._id} newsData={value} />
-            ))}
-          </>
-        )}
-      </NewsWrapper>
-      <Pagination
-        totalPageNum={totalPageNum}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        getPaginationData={getPaginationData}
-        currentBlockNum={currentBlockNum}
-        setCurrentBlockNum={setCurrentBlockNum}
-      />
-    </NewsContainer>
+      </NewsContainer>
+    </NewsMainContainer>
   );
 }
 
