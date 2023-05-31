@@ -1,9 +1,8 @@
-import Header from "./components/nav/Header";
+import Header from "./components/Header";
 import MainPage from "./pages/MainPage";
 import LoginPage from "./pages/LoginPage";
 import HeadlinesPage from "./pages/HeadlinesPage";
 import NewsPage from "./pages/NewsPage";
-import DetailPage from "./pages/DetailPage";
 import GlobalStyle from "./components/assets/style/globalStyle";
 import { Routes, Route } from "react-router-dom";
 
@@ -17,7 +16,6 @@ function App() {
         <Route path='/login' element={<LoginPage />} />
         <Route path='/headlines' element={<HeadlinesPage />} />
         <Route path='/news' element={<NewsPage />} />
-        <Route path='/detailnews/:id' element={<DetailPage />} />
       </Routes>
     </div>
   );

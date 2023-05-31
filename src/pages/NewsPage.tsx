@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import NewsMain from "../components/news/NewsMain";
+import NewsMain from "./news/NewsMain";
 
 const NewsMainContainer = styled.div`
   display: flex;

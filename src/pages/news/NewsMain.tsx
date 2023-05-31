@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import NewsList from "./NewsList";
-import Pagination from "./Pagination";
+import Pagination from "../../components/Pagination";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
@@ -258,19 +258,19 @@ function NewsMain() {
         {sortedCurrentPage === 0 ? (
           <>
             {newsData?.map((value: any, index: number) => (
-              <NewsList key={value._id} newsData={value} index={index} />
+              <NewsList key={value._id} newsData={value} />
             ))}
           </>
         ) : sortedCurrentPage === 1 ? (
           <>
             {sortedDateNewsData?.map((value: any, index: number) => (
-              <NewsList key={value._id} newsData={value} index={index} />
+              <NewsList key={value._id} newsData={value} />
             ))}
           </>
         ) : (
           <>
             {sortedRankNewsData?.map((value: any, index: number) => (
-              <NewsList key={value._id} newsData={value} index={index} />
+              <NewsList key={value._id} newsData={value} />
             ))}
           </>
         )}

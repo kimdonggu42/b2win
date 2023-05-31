@@ -81,7 +81,7 @@ function Pagination({
       <button className='prevHandle' onClick={prevPageHandler} disabled={currentPage === 1}>
         prev
       </button>
-      {allArr.slice(blockArea, 10 + blockArea).map((value) => {
+      {allArr.slice(blockArea, PAGING_NUM + blockArea).map((value) => {
         return (
           <button
             className={currentPage === value ? "pageTab pageFocused" : "pageTab"}
