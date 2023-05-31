@@ -1,24 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Header from "./components/nav/Header";
+import MainPage from "./pages/MainPage";
+import LoginPage from "./pages/LoginPage";
+import HeadlinesPage from "./pages/HeadlinesPage";
+import NewsPage from "./pages/NewsPage";
+import DetailPage from "./pages/DetailPage";
+import GlobalStyle from "./components/assets/style/globalStyle";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <GlobalStyle />
+      <Header />
+      <Routes>
+        <Route path='/' element={<MainPage />} />
+        <Route path='/login' element={<LoginPage />} />
+        <Route path='/headlines' element={<HeadlinesPage />} />
+        <Route path='/news' element={<NewsPage />} />
+        <Route path='/detailnews/:id' element={<DetailPage />} />
+      </Routes>
     </div>
   );
 }
