@@ -23,13 +23,15 @@ const SelectWrapper = styled.div`
   /* border: 1px solid blue; */
 
   > .country {
-    width: 50px;
+    width: 70px;
+    padding: 0 10px 0 10px;
   }
 
   > .topic,
   .searchIn,
   .sortby {
     width: 120px;
+    padding: 0 10px 0 10px;
   }
 
   > .keyword {
@@ -39,6 +41,17 @@ const SelectWrapper = styled.div`
 
   > .searchBtn {
     width: 70px;
+    font-size: 15px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    background-color: #2d7947;
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.9;
+    }
   }
 `;
 
