@@ -55,9 +55,17 @@ function LoginForm() {
   const accessToken = "login";
 
   const onSubmit = () => {
-    localStorage.setItem("accessToken", accessToken);
-    navigate("/");
-    window.location.reload();
+    if (userId === "codestates1" && userPw === "12345678") {
+      localStorage.setItem("accessToken", accessToken);
+      navigate("/");
+      window.location.reload();
+    } else if (userId === "codestates2" && userPw === "87654321") {
+      localStorage.setItem("accessToken", accessToken);
+      navigate("/");
+      window.location.reload();
+    } else {
+      alert("ID와 PASSWORD를 다시 확인해주세요.");
+    }
   };
 
   return (
@@ -66,14 +74,7 @@ function LoginForm() {
         <div className='loginTitle'>Login</div>
         <input placeholder='ID' onChange={inputIdChange} value={userId} />
         <input placeholder='PASSWORD' onChange={inputPwChange} value={userPw} />
-        <button
-          onClick={onSubmit}
-          disabled={
-            userId !== "codestates1" || userPw !== "12345678"
-              ? userId !== "codestates2" || userPw !== "87654321"
-              : false
-          }
-        >
+        <button onClick={onSubmit} disabled={userId.length === 0 || userPw.length === 0}>
           Login
         </button>
       </LoginWrapper>
