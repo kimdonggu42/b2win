@@ -115,10 +115,10 @@ function NewsMain() {
         lang: "en",
         sort_by: userSortBy, // 정렬 기준
         page: 1, // 몇번째 페이지인지
-        page_size: "10", // 한 페이지에 몇 개씩 볼건지
+        page_size: 10, // 한 페이지에 몇 개씩 볼건지
       },
       headers: {
-        "x-api-key": process.env.REACT_APP_NEWSCATCHER_API_KEY_FIVE,
+        "x-api-key": process.env.REACT_APP_NEWSCATCHER_API_KEY_SIX,
       },
     });
     setNewsData(res.data);
@@ -142,10 +142,10 @@ function NewsMain() {
         lang: "en",
         sort_by: userSortBy,
         page: currentPage,
-        page_size: "10",
+        page_size: 10,
       },
       headers: {
-        "x-api-key": process.env.REACT_APP_NEWSCATCHER_API_KEY_FIVE,
+        "x-api-key": process.env.REACT_APP_NEWSCATCHER_API_KEY_SIX,
       },
     });
     setNewsData(res.data);
@@ -193,8 +193,10 @@ function NewsMain() {
             <option value='MX'>MX</option>
           </select>
           <select className='topic' value={userTopic} onChange={topicChange}>
-            {Object.keys(Topics).map((topic: any) => (
-              <option value={topic}>{topic}</option>
+            {Object.keys(Topics).map((topic: any, index: number) => (
+              <option key={index} value={topic}>
+                {topic}
+              </option>
             ))}
           </select>
           <select className='searchIn' value={userSearchIn} onChange={searchInChange}>
