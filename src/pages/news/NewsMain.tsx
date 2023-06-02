@@ -60,6 +60,24 @@ const NewsWrapper = styled.ul`
   /* border: 1px solid orange; */
 `;
 
+enum Topics {
+  news = "news",
+  sport = "sport",
+  tech = "tech",
+  world = "world",
+  finance = "finance",
+  politics = "politics",
+  business = "business",
+  economics = "economic",
+  entertainment = "entertainment",
+  beauty = "beauty",
+  travel = "travel",
+  music = "music",
+  food = "food",
+  science = "science",
+  gaming = "gaming",
+}
+
 function NewsMain() {
   const [newsData, setNewsData] = useState<any>(
     () => JSON.parse(window.localStorage.getItem("newsData")!) || []
@@ -165,10 +183,6 @@ function NewsMain() {
     setUserSortBy(e.target.value);
   };
 
-  // console.log(newsData);
-  // console.log(newsData.articles);
-  // console.log(newsData.total_pages);
-
   return (
     <NewsMainContainer>
       <NewsContainer>
@@ -179,21 +193,9 @@ function NewsMain() {
             <option value='MX'>MX</option>
           </select>
           <select className='topic' value={userTopic} onChange={topicChange}>
-            <option value='news'>news</option>
-            <option value='sport'>sport</option>
-            <option value='tech'>tech</option>
-            <option value='world'>world</option>
-            <option value='finance'>finance</option>
-            <option value='politics'>politics</option>
-            <option value='business'>business</option>
-            <option value='economics'>economics</option>
-            <option value='entertainment'>entertainment</option>
-            <option value='beauty'>beauty</option>
-            <option value='travel'>travel</option>
-            <option value='music'>music</option>
-            <option value='food'>food</option>
-            <option value='science'>science</option>
-            <option value='gaming'>gaming</option>
+            {Object.keys(Topics).map((topic: any) => (
+              <option value={topic}>{topic}</option>
+            ))}
           </select>
           <select className='searchIn' value={userSearchIn} onChange={searchInChange}>
             <option value='title'>title</option>
