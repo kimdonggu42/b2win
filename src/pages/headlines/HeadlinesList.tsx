@@ -33,7 +33,7 @@ const HeadlinesContent = styled.div`
   }
 `;
 
-function HeadlinesList({ headlinesData }: any) {
+function HeadlinesList({ headlinesData, ref }: any) {
   return (
     <HeadlinesContainer>
       <Link to={headlinesData.link} target='_blank'>
@@ -60,6 +60,7 @@ function HeadlinesList({ headlinesData }: any) {
           </div>
         </HeadlinesContent>
       </Link>
+      <div ref={ref}>End Page</div>
     </HeadlinesContainer>
   );
 }

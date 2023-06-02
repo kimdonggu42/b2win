@@ -3,6 +3,7 @@ import NewsList from "./NewsList";
 import Pagination from "../../components/Pagination";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { Topics } from "../../type";
 
 const NewsMainContainer = styled.div`
   display: flex;
@@ -59,24 +60,6 @@ const NewsWrapper = styled.ul`
   list-style: none;
   /* border: 1px solid orange; */
 `;
-
-enum Topics {
-  news = "news",
-  sport = "sport",
-  tech = "tech",
-  world = "world",
-  finance = "finance",
-  politics = "politics",
-  business = "business",
-  economics = "economic",
-  entertainment = "entertainment",
-  beauty = "beauty",
-  travel = "travel",
-  music = "music",
-  food = "food",
-  science = "science",
-  gaming = "gaming",
-}
 
 function NewsMain() {
   const [newsData, setNewsData] = useState<any>(

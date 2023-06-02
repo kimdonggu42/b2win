@@ -19,3 +19,21 @@ export interface NewsDataType {
   _id?: string;
   _score?: number;
 }
+
+export enum Topics {
+  news = "news",
+  sport = "sport",
+  tech = "tech",
+  world = "world",
+  finance = "finance",
+  politics = "politics",
+  business = "business",
+  economics = "economic",
+  entertainment = "entertainment",
+  beauty = "beauty",
+  travel = "travel",
+  music = "music",
+  food = "food",
+  science = "science",
+  gaming = "gaming",
+}

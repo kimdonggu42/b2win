@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import HeadlinesList from "./HeadlinesList";
-import Pagination from "../../components/Pagination";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useInView } from "react-intersection-observer";
+import { Topics } from "../../type";
 
 const NewsMainContainer = styled.div`
   display: flex;
@@ -55,87 +56,30 @@ const NewsWrapper = styled.ul`
   /* border: 1px solid orange; */
 `;
 
-enum Topics {
-  news = "news",
-  sport = "sport",
-  tech = "tech",
-  world = "world",
-  finance = "finance",
-  politics = "politics",
-  business = "business",
-  economics = "economic",
-  entertainment = "entertainment",
-  beauty = "beauty",
-  travel = "travel",
-  music = "music",
-  food = "food",
-  science = "science",
-  gaming = "gaming",
-}
-
 function HeadlinesMain() {
-  const [headlinesData, setHeadlinesData] = useState<any>(
-    () => JSON.parse(window.localStorage.getItem("headlinesData")!) || []
-  );
+  const [headlinesData, setHeadlinesData] = useState<any>([]);
   const [userCountry, setUserCountry] = useState<string>("US");
   const [userTopic, setUserTopic] = useState<string>("news");
 
-  const [currentPage, setCurrentPage] = useState<number>(
-    () => JSON.parse(window.localStorage.getItem("currentPage")!) || 1
-  );
-  const [currentBlockNum, setCurrentBlockNum] = useState<number>(
-    () => JSON.parse(window.localStorage.getItem("currentBlockNum")!) || 0
-  );
+  const [ref, inView] = useInView();
 
   // 검색 버튼 클릭 시 GET 요청
   const getData = async () => {
     const res = await axios.get(`https://api.newscatcherapi.com/v2/latest_headlines`, {
       params: {
         when: "7d",
-        topic: "news", // 주제 -> selector
-        countries: "US", // 국가 -> selector
-        lang: "en",
-        page: 1, // 몇번째 페이지인지
-        page_size: 10, // 한 페이지에 몇 개씩 볼건지
-      },
-      headers: {
-        "x-api-key": process.env.REACT_APP_NEWSCATCHER_API_KEY_SIX,
-      },
-    });
-    setHeadlinesData(res.data);
-    setCurrentPage(1);
-    setCurrentBlockNum(0);
-  };
-
-  // 페이지네이션 버튼 클릭 시 GET 요청
-  const getPaginationData = async () => {
-    const res = await axios.get(`https://api.newscatcherapi.com/v2/lastest_headlines`, {
-      params: {
-        when: "7d",
         topic: userTopic,
         countries: userCountry,
         lang: "en",
-        page: currentPage,
+        page: 1,
         page_size: 10,
       },
       headers: {
         "x-api-key": process.env.REACT_APP_NEWSCATCHER_API_KEY_SIX,
       },
     });
-    setHeadlinesData(res.data);
+    setHeadlinesData(res.data.articles);
   };
-
-  useEffect(() => {
-    window.localStorage.setItem("headlinesData", JSON.stringify(headlinesData));
-  }, [headlinesData]);
-
-  useEffect(() => {
-    window.localStorage.setItem("currentPage", JSON.stringify(currentPage));
-  }, [currentPage]);
-
-  useEffect(() => {
-    window.localStorage.setItem("currentBlockNum", JSON.stringify(currentBlockNum));
-  }, [currentBlockNum]);
 
   const countryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setUserCountry(e.target.value);
@@ -145,7 +89,28 @@ function HeadlinesMain() {
     setUserTopic(e.target.value);
   };
 
-  console.log(headlinesData);
+  const getScrollToData = async () => {
+    const res = await axios.get(`https://api.newscatcherapi.com/v2/latest_headlines`, {
+      params: {
+        when: "7d",
+        topic: userTopic,
+        countries: userCountry,
+        lang: "en",
+        page: 1,
+        page_size: 10,
+      },
+      headers: {
+        "x-api-key": process.env.REACT_APP_NEWSCATCHER_API_KEY_SIX,
+      },
+    });
+    setHeadlinesData([...headlinesData, res.data.articles]);
+  };
+
+  useEffect(() => {
+    if (inView) {
+      getScrollToData();
+    }
+  }, [inView]);
 
   return (
     <NewsMainContainer>
@@ -170,18 +135,10 @@ function HeadlinesMain() {
           </button>
         </SelectWrapper>
         <NewsWrapper>
-          {headlinesData.articles?.map((value: any) => (
-            <HeadlinesList key={value._id} headlinesData={value} />
+          {headlinesData?.map((value: any) => (
+            <HeadlinesList key={value._id} headlinesData={value} ref={ref} />
           ))}
         </NewsWrapper>
-        {/* <Pagination
-          totalPageNum={headlinesData.total_pages}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          getPaginationData={getPaginationData}
-          currentBlockNum={currentBlockNum}
-          setCurrentBlockNum={setCurrentBlockNum}
-        /> */}
       </NewsContainer>
     </NewsMainContainer>
   );
